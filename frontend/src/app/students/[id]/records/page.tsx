@@ -10,10 +10,16 @@ import { useAuthStore } from "@/store/auth-store";
 
 type RecordItem = {
   id: string;
+  teacher_id: string;
   record_date: string;
   observation: string;
   actions_taken: string | null;
   next_steps: string | null;
+};
+
+type CurrentUser = {
+  id: string;
+  role: "ADMIN" | "DOCENTE";
 };
 
 export default function StudentRecordsPage() {
@@ -21,6 +27,7 @@ export default function StudentRecordsPage() {
   const token = useAuthStore((s) => s.token);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [records, setRecords] = useState<RecordItem[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -49,9 +56,25 @@ export default function StudentRecordsPage() {
     }
   };
 
+  const loadCurrentUser = async () => {
+    if (!hasHydrated || !token) return;
+    try {
+      const me = await apiFetch<CurrentUser>("/auth/me", { headers: authHeaders });
+      setCurrentUser(me);
+    } catch {
+      setCurrentUser(null);
+    }
+  };
+
   useEffect(() => {
+    loadCurrentUser();
     loadRecords();
   }, [hasHydrated, token, id]);
+
+  const canManageRecord = (record: RecordItem) => {
+    if (!currentUser) return false;
+    return currentUser.role === "ADMIN" || currentUser.id === record.teacher_id;
+  };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -242,22 +265,24 @@ export default function StudentRecordsPage() {
                 {record.next_steps ? (
                   <p className="mt-1 text-sm text-gray-600">Proximos pasos: {record.next_steps}</p>
                 ) : null}
-                <div className="mt-3 flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => startEdit(record)}
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => deleteRecord(record.id)}
-                    className="rounded-lg border border-red-200 px-3 py-1.5 text-xs text-red-700"
-                  >
-                    Eliminar
-                  </button>
-                </div>
+                {canManageRecord(record) ? (
+                  <div className="mt-3 flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => startEdit(record)}
+                      className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => deleteRecord(record.id)}
+                      className="rounded-lg border border-red-200 px-3 py-1.5 text-xs text-red-700"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                ) : null}
               </>
             )}
             </article>

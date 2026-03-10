@@ -17,7 +17,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: roles finos en API (`ADMIN`/`DOCENTE`) para modulos nucleares
 - Completado parcial: permisos por accion en alumnos (alta/edicion solo `ADMIN`)
 - Completado parcial: permisos por autoria en seguimientos e informes
-- Siguiente foco: cobertura de pruebas funcionales de autorizacion por endpoint
+- Completado parcial: reflejo de permisos en UI de seguimientos/informes
+- Siguiente foco: pruebas funcionales E2E de autorizacion por endpoint y pantalla
 
 ## Fase 0 - Definicion (semana 1)
 

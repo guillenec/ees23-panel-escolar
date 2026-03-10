@@ -20,11 +20,17 @@ type ReportItem = {
   created_at: string;
 };
 
+type CurrentUser = {
+  id: string;
+  role: "ADMIN" | "DOCENTE";
+};
+
 export default function ReportsPage() {
   const token = useAuthStore((s) => s.token);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [students, setStudents] = useState<Student[]>([]);
   const [reports, setReports] = useState<ReportItem[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
   const [studentId, setStudentId] = useState("");
   const [periodLabel, setPeriodLabel] = useState("1er trimestre 2026");
   const [summaryText, setSummaryText] = useState("");
@@ -52,7 +58,18 @@ export default function ReportsPage() {
     }
   };
 
+  const loadCurrentUser = async () => {
+    if (!hasHydrated || !token) return;
+    try {
+      const me = await apiFetch<CurrentUser>("/auth/me", { headers: authHeaders });
+      setCurrentUser(me);
+    } catch {
+      setCurrentUser(null);
+    }
+  };
+
   useEffect(() => {
+    loadCurrentUser();
     loadData();
   }, [hasHydrated, token]);
 
@@ -82,6 +99,9 @@ export default function ReportsPage() {
     <RequireAuth>
       <main className="mx-auto min-h-screen max-w-5xl p-6">
         <h1 className="text-2xl font-semibold text-brand-700">Informes</h1>
+        {currentUser?.role === "DOCENTE" ? (
+          <p className="mt-2 text-sm text-gray-600">Estas viendo solo informes generados por tu usuario.</p>
+        ) : null}
         {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
 
         <form onSubmit={onGenerate} className="mt-4 rounded-xl bg-white p-5 shadow-sm">

@@ -294,3 +294,17 @@ Validaciones:
 
 - login JSON y OAuth form funcionando
 - verificaciones E2E de 403 para docente no autor sobre recursos ajenos
+
+## Sesion de avance - reflejo de permisos en frontend
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- alinear UI con reglas de autorizacion del backend
+
+Cambios realizados:
+
+- `seguimientos`: botones editar/eliminar visibles solo para ADMIN o docente autor
+- `informes`: mensaje contextual para DOCENTE indicando que ve solo sus informes

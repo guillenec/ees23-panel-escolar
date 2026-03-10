@@ -169,6 +169,7 @@ Cambios realizados (iteracion actual):
 - [x] permisos por accion: alta/edicion de alumnos restringida a `ADMIN`
 - [x] permisos por autoria en seguimientos/informes (docente solo recursos propios)
 - [x] endpoint OAuth form para Swagger (`/auth/token`)
+- [x] UI alineada a permisos (acciones visibles segun rol/autoria)
 
 Commits:
 
