@@ -4,6 +4,12 @@
 
 Entregar un sistema interno usable por docentes para alumnos, seguimientos, informes y documentos, en red local institucional.
 
+## Estado rapido
+
+- Completado: base tecnica inicial (frontend, backend, docker)
+- Completado parcial: modulo de seguimiento pedagogico (alta, listado, edicion, borrado)
+- Siguiente foco: persistencia de sesion en frontend y modulo de informes PDF
+
 ## Fase 0 - Definicion (semana 1)
 
 - cerrar alcance funcional MVP

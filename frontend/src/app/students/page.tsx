@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { apiFetch } from "@/lib/api-client";
@@ -47,6 +48,7 @@ export default function StudentsPage() {
               <th className="px-4 py-3">DNI</th>
               <th className="px-4 py-3">Anio</th>
               <th className="px-4 py-3">Turno</th>
+              <th className="px-4 py-3">Accion</th>
             </tr>
           </thead>
           <tbody>
@@ -56,6 +58,11 @@ export default function StudentsPage() {
                 <td className="px-4 py-3">{student.dni}</td>
                 <td className="px-4 py-3">{student.school_year ?? "-"}</td>
                 <td className="px-4 py-3">{student.shift ?? "-"}</td>
+                <td className="px-4 py-3">
+                  <Link href={`/students/${student.id}/records`} className="text-brand-700 underline">
+                    Seguimientos
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

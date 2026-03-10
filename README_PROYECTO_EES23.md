@@ -55,7 +55,8 @@ Esto evita depender de Sheets como base transaccional y reduce costo de migracio
 
 - Definicion inicial de arquitectura y roadmap lista.
 - Bootstrap tecnico inicial creado (`backend/`, `frontend/`, `infra/docker/`).
-- Pendiente: consolidar autenticacion avanzada, seguimientos, informes PDF e integraciones Google.
+- Seguimiento pedagogico inicial implementado (API + UI basica).
+- Pendiente: consolidar autenticacion avanzada, informes PDF e integraciones Google.
 
 ## Arranque rapido (desarrollo)
 

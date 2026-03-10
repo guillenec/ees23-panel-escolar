@@ -93,3 +93,45 @@ Pendientes:
 Bloqueos/Riesgos:
 
 - falta instalar dependencias y correr validaciones en el entorno real
+
+## Sesion de avance - seguimiento pedagogico inicial
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- habilitar seguimiento pedagogico basico de punta a punta
+
+Cambios realizados:
+
+- backend: nuevo endpoint para listar y crear seguimientos por alumno
+- backend: nuevos esquemas `PedagogicalRecordCreate` y `PedagogicalRecordRead`
+- frontend: nueva vista `students/[id]/records` para cargar/consultar seguimientos
+- frontend: acceso directo desde listado de alumnos
+- docker: ajuste de puerto postgres host `5433` para evitar conflicto local
+
+Pendientes:
+
+- editar y eliminar seguimientos
+- filtros por fecha/docente
+- validaciones y test automatizados
+
+## Sesion de avance - seguimiento CRUD completo
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- completar CRUD de seguimientos
+
+Cambios realizados:
+
+- backend: se agregaron endpoints `PATCH` y `DELETE` para seguimientos
+- frontend: se agrego UI para editar y eliminar cada seguimiento desde ficha del alumno
+- frontend: cliente API ajustado para manejar respuestas `204 No Content`
+
+Estado:
+
+- seguimiento quedo completo para ciclo basico: alta, listado, edicion, borrado

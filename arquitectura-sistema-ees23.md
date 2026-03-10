@@ -366,8 +366,8 @@ educacion_especial_2026/
 
 - `GET /api/v1/students/{student_id}/records`
 - `POST /api/v1/students/{student_id}/records`
-- `GET /api/v1/records/{record_id}`
-- `PATCH /api/v1/records/{record_id}`
+- `PATCH /api/v1/students/{student_id}/records/{record_id}`
+- `DELETE /api/v1/students/{student_id}/records/{record_id}`
 
 ### 8.5 Informes
 

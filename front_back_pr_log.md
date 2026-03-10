@@ -142,3 +142,22 @@ Archivos clave:
 Validaciones:
 
 - pendientes de ejecucion local en siguiente sesion
+
+---
+
+### Rama activa: `main` (iteracion continua local)
+
+Objetivo:
+
+- completar modulo de seguimiento pedagogico y preparar siguientes hitos
+
+Cambios realizados (iteracion actual):
+
+- [x] `PATCH /api/v1/students/{student_id}/records/{record_id}`
+- [x] `DELETE /api/v1/students/{student_id}/records/{record_id}`
+- [x] UI frontend para editar/eliminar seguimientos
+- [x] ajuste cliente API para respuestas HTTP 204
+
+Commits:
+
+- pendiente (se registran al cierre de cada subfase)

@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16
@@ -9,7 +7,7 @@ services:
       POSTGRES_USER: ees23
       POSTGRES_PASSWORD: ees23
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - ees23_pg_data:/var/lib/postgresql/data
 
