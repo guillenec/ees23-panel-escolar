@@ -22,7 +22,7 @@ def list_students(
 def create_student(
     payload: StudentCreate,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
+    _: User = Depends(require_roles("ADMIN")),
 ):
     exists = db.scalar(select(Student).where(Student.dni == payload.dni))
     if exists:
@@ -52,7 +52,7 @@ def update_student(
     student_id: str,
     payload: StudentUpdate,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
+    _: User = Depends(require_roles("ADMIN")),
 ):
     student = db.get(Student, student_id)
     if not student:

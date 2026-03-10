@@ -15,7 +15,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado: CI base en GitHub Actions (tests + build)
 - Completado parcial: hardening auth (ruta privada + logout + `/auth/me`)
 - Completado parcial: roles finos en API (`ADMIN`/`DOCENTE`) para modulos nucleares
-- Siguiente foco: cobertura de pruebas funcionales y permisos por accion (ABM sensible)
+- Completado parcial: permisos por accion en alumnos (alta/edicion solo `ADMIN`)
+- Siguiente foco: cobertura de pruebas funcionales de autorizacion por endpoint
 
 ## Fase 0 - Definicion (semana 1)
 

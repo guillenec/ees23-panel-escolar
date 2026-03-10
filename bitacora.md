@@ -258,3 +258,18 @@ Resultado:
 
 - login con `admin@ees23.local` funciona
 - error `Failed to fetch` por CORS queda resuelto
+
+## Sesion de avance - permisos por accion (ADMIN/DOCENTE)
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- aplicar permisos mas finos para operaciones sensibles
+
+Cambios realizados:
+
+- `POST /students` y `PATCH /students/{id}` quedan restringidos a `ADMIN`
+- consultas de alumnos y modulos docentes mantienen acceso `ADMIN`/`DOCENTE`
+- test unitario nuevo para `require_roles` en `backend/tests/unit/test_roles.py`

@@ -99,6 +99,11 @@ npm run dev
 
 Estos usuarios se crean automaticamente por seed de backend para entorno de desarrollo.
 
+## Permisos actuales por rol (MVP)
+
+- `ADMIN`: acceso completo, gestion de usuarios, alta/modificacion de alumnos.
+- `DOCENTE`: consulta de alumnos, registro de seguimientos, generacion de informes.
+
 ## Nota para despliegue en PC del trabajo
 
 - En esta PC de desarrollo no se configurara autostart del stack.

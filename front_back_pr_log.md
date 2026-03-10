@@ -166,6 +166,7 @@ Cambios realizados (iteracion actual):
 - [x] runbook de autostart para futura PC servidor trabajo
 - [x] fix login para cuentas `.local` + CORS frontend/backend
 - [x] control de roles en alumnos/seguimientos/informes (`ADMIN`, `DOCENTE`)
+- [x] permisos por accion: alta/edicion de alumnos restringida a `ADMIN`
 
 Commits:
 
