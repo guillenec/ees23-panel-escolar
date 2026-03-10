@@ -11,7 +11,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado: persistencia de sesion frontend con Zustand persist
 - Completado parcial: modulo de informes (generacion + descarga PDF)
 - Completado: migraciones Alembic iniciales
-- Siguiente foco: tests base backend/frontend y CI
+- Completado: tests base backend/frontend
+- Siguiente foco: CI (lint + tests + build)
 
 ## Fase 0 - Definicion (semana 1)
 

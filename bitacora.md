@@ -191,3 +191,18 @@ Cambios realizados:
 - se agrego migracion inicial para `users`, `students`, `pedagogical_records`, `reports`
 - backend ahora inicia asumiendo migraciones aplicadas (sin `create_all`)
 - `docker-compose` ejecuta `alembic upgrade head` antes de levantar API
+
+## Sesion de avance - tests base backend y frontend
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- dejar base de pruebas automatizadas para evolucion segura
+
+Cambios realizados:
+
+- backend: test unitario de seguridad JWT/hash en `backend/tests/unit/test_security.py`
+- frontend: configuracion Vitest y test unitario en `frontend/src/lib/date-utils.test.ts`
+- se agregaron scripts/comandos de prueba en README de frontend y backend

@@ -28,3 +28,9 @@ alembic downgrade -1
 
 - Swagger: `http://localhost:8000/docs`
 - Health: `http://localhost:8000/health`
+
+## Tests
+
+```bash
+pytest
+```

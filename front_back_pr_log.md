@@ -160,6 +160,7 @@ Cambios realizados (iteracion actual):
 - [x] persistencia de sesion frontend con Zustand persist (`localStorage`)
 - [x] modulo inicial de informes (API + UI + descarga PDF)
 - [x] Alembic integrado con migracion inicial y upgrade automatico en compose
+- [x] tests base backend/frontend agregados
 
 Commits:
 
