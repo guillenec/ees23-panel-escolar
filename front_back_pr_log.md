@@ -161,9 +161,12 @@ Cambios realizados (iteracion actual):
 - [x] modulo inicial de informes (API + UI + descarga PDF)
 - [x] Alembic integrado con migracion inicial y upgrade automatico en compose
 - [x] tests base backend/frontend agregados
+- [x] CI base en GitHub Actions (`pytest`, `npm test`, `npm build`)
 
 Commits:
 
 - `feat(records): complete pedagogical record CRUD flow` (`545b473`)
 - `feat(auth): persist frontend session with zustand` (`76833b2`)
 - `feat(reports): add initial report generation and PDF export` (`55c35c8`)
+- `feat(db): add Alembic migrations and startup integration` (`90baf90`)
+- `test(base): add backend and frontend test foundations` (`f998f67`)

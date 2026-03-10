@@ -206,3 +206,18 @@ Cambios realizados:
 - backend: test unitario de seguridad JWT/hash en `backend/tests/unit/test_security.py`
 - frontend: configuracion Vitest y test unitario en `frontend/src/lib/date-utils.test.ts`
 - se agregaron scripts/comandos de prueba en README de frontend y backend
+
+## Sesion de avance - CI base
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- automatizar validaciones minimas en push/pr
+
+Cambios realizados:
+
+- workflow `/.github/workflows/ci.yml` agregado
+- job backend: instala dependencias y ejecuta `pytest`
+- job frontend: `npm ci`, `npm run test`, `npm run build`

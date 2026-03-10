@@ -12,7 +12,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: modulo de informes (generacion + descarga PDF)
 - Completado: migraciones Alembic iniciales
 - Completado: tests base backend/frontend
-- Siguiente foco: CI (lint + tests + build)
+- Completado: CI base en GitHub Actions (tests + build)
+- Siguiente foco: hardening de auth y cobertura de pruebas funcionales
 
 ## Fase 0 - Definicion (semana 1)
 
