@@ -173,3 +173,5 @@ Commits:
 - `feat(db): add Alembic migrations and startup integration` (`90baf90`)
 - `test(base): add backend and frontend test foundations` (`f998f67`)
 - `ci(base): add backend and frontend validation workflows` (`a4d0db2`)
+- `docs(worklog): register ci commit in log` (`9bc3df7`)
+- `feat(auth): add protected routes, logout, and work-server runbook` (`bb8ea0b`)
