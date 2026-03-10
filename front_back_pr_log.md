@@ -164,6 +164,8 @@ Cambios realizados (iteracion actual):
 - [x] CI base en GitHub Actions (`pytest`, `npm test`, `npm build`)
 - [x] hardening auth basico (`/auth/me`, rutas privadas, logout)
 - [x] runbook de autostart para futura PC servidor trabajo
+- [x] fix login para cuentas `.local` + CORS frontend/backend
+- [x] control de roles en alumnos/seguimientos/informes (`ADMIN`, `DOCENTE`)
 
 Commits:
 

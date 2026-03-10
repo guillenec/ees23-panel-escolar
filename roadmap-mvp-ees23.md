@@ -14,7 +14,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado: tests base backend/frontend
 - Completado: CI base en GitHub Actions (tests + build)
 - Completado parcial: hardening auth (ruta privada + logout + `/auth/me`)
-- Siguiente foco: cobertura de pruebas funcionales y roles finos por modulo
+- Completado parcial: roles finos en API (`ADMIN`/`DOCENTE`) para modulos nucleares
+- Siguiente foco: cobertura de pruebas funcionales y permisos por accion (ABM sensible)
 
 ## Fase 0 - Definicion (semana 1)
 

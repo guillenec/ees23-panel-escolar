@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_current_user
+from app.api.deps import require_roles
 from app.db.session import get_db
 from app.models.pedagogical_record import PedagogicalRecord
 from app.models.report import Report
@@ -29,7 +29,9 @@ def _build_default_summary(records: list[PedagogicalRecord]) -> str:
 
 
 @router.get("", response_model=list[ReportRead])
-def list_reports(db: Session = Depends(get_db), _: User = Depends(get_current_user)):
+def list_reports(
+    db: Session = Depends(get_db), _: User = Depends(require_roles("ADMIN", "DOCENTE"))
+):
     return list(db.scalars(select(Report).order_by(Report.created_at.desc())))
 
 
@@ -37,7 +39,7 @@ def list_reports(db: Session = Depends(get_db), _: User = Depends(get_current_us
 def generate_report(
     payload: ReportGenerateRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, payload.student_id)
     if not student:
@@ -68,7 +70,7 @@ def generate_report(
 def download_report_pdf(
     report_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     report = db.get(Report, report_id)
     if not report:

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_current_user
+from app.api.deps import require_roles
 from app.db.session import get_db
 from app.models.pedagogical_record import PedagogicalRecord
 from app.models.student import Student
@@ -18,7 +18,9 @@ router = APIRouter(prefix="/students/{student_id}/records", tags=["records"])
 
 @router.get("", response_model=list[PedagogicalRecordRead])
 def list_records(
-    student_id: str, db: Session = Depends(get_db), _: User = Depends(get_current_user)
+    student_id: str,
+    db: Session = Depends(get_db),
+    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, student_id)
     if not student:
@@ -37,7 +39,7 @@ def create_record(
     student_id: str,
     payload: PedagogicalRecordCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, student_id)
     if not student:
@@ -63,7 +65,7 @@ def update_record(
     record_id: str,
     payload: PedagogicalRecordUpdate,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, student_id)
     if not student:
@@ -86,7 +88,7 @@ def delete_record(
     student_id: str,
     record_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, student_id)
     if not student:

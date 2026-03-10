@@ -7,15 +7,27 @@ from app.models.user import User
 
 def seed_admin(db: Session) -> None:
     admin = db.scalar(select(User).where(User.email == "admin@ees23.local"))
-    if admin:
-        return
+    if not admin:
+        db.add(
+            User(
+                full_name="Administrador EES23",
+                email="admin@ees23.local",
+                password_hash=get_password_hash("admin123"),
+                role="ADMIN",
+                is_active=True,
+            )
+        )
 
-    user = User(
-        full_name="Administrador EES23",
-        email="admin@ees23.local",
-        password_hash=get_password_hash("admin123"),
-        role="ADMIN",
-        is_active=True,
-    )
-    db.add(user)
+    docente = db.scalar(select(User).where(User.email == "docente@ees23.local"))
+    if not docente:
+        db.add(
+            User(
+                full_name="Docente Prueba EES23",
+                email="docente@ees23.local",
+                password_hash=get_password_hash("docente123"),
+                role="DOCENTE",
+                is_active=True,
+            )
+        )
+
     db.commit()

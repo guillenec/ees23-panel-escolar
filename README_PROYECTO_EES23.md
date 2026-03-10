@@ -91,14 +91,24 @@ npm run dev
 
 - Email: `admin@ees23.local`
 - Clave: `admin123`
+- Rol: `ADMIN`
 
-Este usuario se crea automaticamente por seed de backend para entorno de desarrollo.
+- Email: `docente@ees23.local`
+- Clave: `docente123`
+- Rol: `DOCENTE`
+
+Estos usuarios se crean automaticamente por seed de backend para entorno de desarrollo.
 
 ## Nota para despliegue en PC del trabajo
 
 - En esta PC de desarrollo no se configurara autostart del stack.
 - En la PC del trabajo se aplicara autostart con `systemd`.
 - Guia: `docs/runbooks/servidor-trabajo-autostart.md`
+
+## Troubleshooting rapido
+
+- Si frontend muestra `Failed to fetch`, verificar backend en `http://localhost:8000/health`.
+- El backend ya permite login con cuentas internas `.local`.
 
 ---
 

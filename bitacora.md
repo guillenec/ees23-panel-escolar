@@ -237,3 +237,24 @@ Cambios realizados:
 - frontend: guard de rutas privadas y boton de cierre de sesion
 - docs: runbook `docs/runbooks/servidor-trabajo-autostart.md`
 - docs: aclaracion explicita de que el autostart se implementara en la PC del trabajo
+
+## Sesion de avance - fix login local y permisos por rol
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- resolver error de login en `.local` y reforzar controles por rol
+
+Cambios realizados:
+
+- backend: CORS habilitado para `localhost:3000` y `127.0.0.1:3000`
+- backend: schemas de auth/usuario aceptan emails internos `.local`
+- backend: endpoints de alumnos, seguimientos e informes usan `require_roles("ADMIN", "DOCENTE")`
+- seed: agregado usuario `docente@ees23.local` para pruebas de rol DOCENTE
+
+Resultado:
+
+- login con `admin@ees23.local` funciona
+- error `Failed to fetch` por CORS queda resuelto

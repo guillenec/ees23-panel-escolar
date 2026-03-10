@@ -1,11 +1,11 @@
 from uuid import UUID
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
     full_name: str
-    email: EmailStr
+    email: str
     password: str
     role: str = "DOCENTE"
 
@@ -13,7 +13,7 @@ class UserCreate(BaseModel):
 class UserRead(BaseModel):
     id: UUID
     full_name: str
-    email: EmailStr
+    email: str
     role: str
 
     model_config = {"from_attributes": True}
