@@ -170,3 +170,4 @@ Commits:
 - `feat(reports): add initial report generation and PDF export` (`55c35c8`)
 - `feat(db): add Alembic migrations and startup integration` (`90baf90`)
 - `test(base): add backend and frontend test foundations` (`f998f67`)
+- `ci(base): add backend and frontend validation workflows` (`a4d0db2`)
