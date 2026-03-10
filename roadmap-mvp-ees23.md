@@ -10,7 +10,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: modulo de seguimiento pedagogico (alta, listado, edicion, borrado)
 - Completado: persistencia de sesion frontend con Zustand persist
 - Completado parcial: modulo de informes (generacion + descarga PDF)
-- Siguiente foco: endurecer autenticacion, migraciones Alembic y tests base
+- Completado: migraciones Alembic iniciales
+- Siguiente foco: tests base backend/frontend y CI
 
 ## Fase 0 - Definicion (semana 1)
 

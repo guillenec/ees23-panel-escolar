@@ -175,3 +175,19 @@ Pendientes:
 
 - templates institucionales avanzadas para informes
 - almacenamiento del PDF en Drive (futuro)
+
+## Sesion de avance - alembic y migraciones reales
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- pasar de `create_all` a migraciones controladas
+
+Cambios realizados:
+
+- se integro Alembic (`alembic.ini`, `alembic/env.py`, `alembic/versions/0001_initial_schema.py`)
+- se agrego migracion inicial para `users`, `students`, `pedagogical_records`, `reports`
+- backend ahora inicia asumiendo migraciones aplicadas (sin `create_all`)
+- `docker-compose` ejecuta `alembic upgrade head` antes de levantar API
