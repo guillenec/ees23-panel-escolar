@@ -162,4 +162,6 @@ Cambios realizados (iteracion actual):
 
 Commits:
 
-- pendiente (se registran al cierre de cada subfase)
+- `feat(records): complete pedagogical record CRUD flow` (`545b473`)
+- `feat(auth): persist frontend session with zustand` (`76833b2`)
+- `feat(reports): add initial report generation and PDF export` (`55c35c8`)
