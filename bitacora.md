@@ -308,3 +308,19 @@ Cambios realizados:
 
 - `seguimientos`: botones editar/eliminar visibles solo para ADMIN o docente autor
 - `informes`: mensaje contextual para DOCENTE indicando que ve solo sus informes
+
+## Sesion de avance - pruebas authz y dashboards por rol
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- agregar pruebas de autorizacion por endpoint y separar dashboards por rol
+
+Cambios realizados:
+
+- backend: tests de integracion `backend/tests/integration/test_authz_endpoints.py`
+- backend: dependencia `httpx` agregada para `TestClient`
+- frontend: rutas nuevas `/dashboard/admin` y `/dashboard/docente`
+- frontend: `/dashboard` ahora redirige segun rol obtenido desde `/auth/me`

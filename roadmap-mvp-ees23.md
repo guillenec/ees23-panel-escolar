@@ -18,6 +18,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: permisos por accion en alumnos (alta/edicion solo `ADMIN`)
 - Completado parcial: permisos por autoria en seguimientos e informes
 - Completado parcial: reflejo de permisos en UI de seguimientos/informes
+- Completado parcial: dashboards separados por rol (`/dashboard/admin`, `/dashboard/docente`)
+- Completado: pruebas integracion authz para endpoints sensibles
 - Siguiente foco: pruebas funcionales E2E de autorizacion por endpoint y pantalla
 
 ## Fase 0 - Definicion (semana 1)

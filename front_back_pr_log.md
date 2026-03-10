@@ -170,6 +170,8 @@ Cambios realizados (iteracion actual):
 - [x] permisos por autoria en seguimientos/informes (docente solo recursos propios)
 - [x] endpoint OAuth form para Swagger (`/auth/token`)
 - [x] UI alineada a permisos (acciones visibles segun rol/autoria)
+- [x] tests integracion authz para endpoints (`backend/tests/integration/test_authz_endpoints.py`)
+- [x] dashboards separados por rol + redireccion inteligente desde `/dashboard`
 
 Commits:
 

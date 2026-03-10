@@ -103,6 +103,9 @@ Estos usuarios se crean automaticamente por seed de backend para entorno de desa
 
 - `ADMIN`: acceso completo, gestion de usuarios, alta/modificacion de alumnos.
 - `DOCENTE`: consulta de alumnos, registro de seguimientos, generacion de informes.
+- Dashboard por rol disponible en rutas separadas:
+  - `ADMIN` -> `/dashboard/admin`
+  - `DOCENTE` -> `/dashboard/docente`
 
 ## Nota para despliegue en PC del trabajo
 

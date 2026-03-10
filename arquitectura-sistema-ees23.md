@@ -239,7 +239,7 @@ educacion_especial_2026/
 ### Vistas MVP
 
 - login
-- dashboard docente
+- dashboard por rol (`/dashboard/admin`, `/dashboard/docente`)
 - listado y ficha de alumnos
 - carga y consulta de seguimientos
 - generacion de informes
