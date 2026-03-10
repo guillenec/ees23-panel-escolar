@@ -273,3 +273,24 @@ Cambios realizados:
 - `POST /students` y `PATCH /students/{id}` quedan restringidos a `ADMIN`
 - consultas de alumnos y modulos docentes mantienen acceso `ADMIN`/`DOCENTE`
 - test unitario nuevo para `require_roles` en `backend/tests/unit/test_roles.py`
+
+## Sesion de avance - permisos finos en seguimientos/informes + Swagger OAuth
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- cerrar permisos por autoria y corregir experiencia de autorizacion en Swagger
+
+Cambios realizados:
+
+- `oauth2_scheme` pasa a `tokenUrl=/api/v1/auth/token`
+- nuevo endpoint `POST /api/v1/auth/token` compatible con formulario OAuth2
+- seguimientos: `DOCENTE` solo puede editar/eliminar sus propios registros; `ADMIN` puede todo
+- informes: `DOCENTE` solo lista/descarga informes propios; `ADMIN` ve todos
+
+Validaciones:
+
+- login JSON y OAuth form funcionando
+- verificaciones E2E de 403 para docente no autor sobre recursos ajenos

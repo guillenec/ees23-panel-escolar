@@ -16,6 +16,7 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: hardening auth (ruta privada + logout + `/auth/me`)
 - Completado parcial: roles finos en API (`ADMIN`/`DOCENTE`) para modulos nucleares
 - Completado parcial: permisos por accion en alumnos (alta/edicion solo `ADMIN`)
+- Completado parcial: permisos por autoria en seguimientos e informes
 - Siguiente foco: cobertura de pruebas funcionales de autorizacion por endpoint
 
 ## Fase 0 - Definicion (semana 1)

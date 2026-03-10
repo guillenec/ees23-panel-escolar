@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.api.deps import require_roles
+from app.api.deps import is_admin, require_roles
 from app.db.session import get_db
 from app.models.pedagogical_record import PedagogicalRecord
 from app.models.report import Report
@@ -30,9 +30,12 @@ def _build_default_summary(records: list[PedagogicalRecord]) -> str:
 
 @router.get("", response_model=list[ReportRead])
 def list_reports(
-    db: Session = Depends(get_db), _: User = Depends(require_roles("ADMIN", "DOCENTE"))
+    db: Session = Depends(get_db), current_user: User = Depends(require_roles("ADMIN", "DOCENTE"))
 ):
-    return list(db.scalars(select(Report).order_by(Report.created_at.desc())))
+    query = select(Report).order_by(Report.created_at.desc())
+    if not is_admin(current_user):
+        query = query.where(Report.created_by == current_user.id)
+    return list(db.scalars(query))
 
 
 @router.post("/generate", response_model=ReportRead)
@@ -70,11 +73,14 @@ def generate_report(
 def download_report_pdf(
     report_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
+    current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     report = db.get(Report, report_id)
     if not report:
         raise HTTPException(status_code=404, detail="Informe no encontrado")
+
+    if not is_admin(current_user) and report.created_by != current_user.id:
+        raise HTTPException(status_code=403, detail="Sin permiso para ver este informe")
 
     student = db.get(Student, report.student_id)
     if not student:

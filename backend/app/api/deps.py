@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.db.session import get_db
 from app.models.user import User
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.api_v1_prefix}/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.api_v1_prefix}/auth/token")
 
 
 def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)) -> User:
@@ -37,3 +37,7 @@ def require_roles(*roles: str):
         return current_user
 
     return role_dependency
+
+
+def is_admin(user: User) -> bool:
+    return user.role == "ADMIN"

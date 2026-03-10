@@ -114,6 +114,7 @@ Estos usuarios se crean automaticamente por seed de backend para entorno de desa
 
 - Si frontend muestra `Failed to fetch`, verificar backend en `http://localhost:8000/health`.
 - El backend ya permite login con cuentas internas `.local`.
+- En Swagger `Authorize`, usar `username` y `password` (flujo OAuth password en `/api/v1/auth/token`).
 
 ---
 
