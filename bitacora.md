@@ -135,3 +135,22 @@ Cambios realizados:
 Estado:
 
 - seguimiento quedo completo para ciclo basico: alta, listado, edicion, borrado
+
+## Sesion de avance - persistencia de sesion frontend
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- mantener sesion iniciada entre reinicios de navegador/pc
+
+Cambios realizados:
+
+- store de autenticacion migrado a `zustand/persist` con `localStorage`
+- hidratacion controlada con bandera `hasHydrated` para evitar estados falsos al cargar
+- login redirecciona automaticamente a dashboard si ya hay sesion valida local
+
+Impacto:
+
+- la experiencia de uso mejora en entornos de uso diario escolar

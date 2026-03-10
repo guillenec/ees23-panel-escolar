@@ -233,6 +233,7 @@ educacion_especial_2026/
 - App Router con segmentos `(auth)` y `(private)`
 - composicion por features para aislar dominio
 - estado global con Zustand para auth/filtros/ui
+- persistencia local de sesion con `zustand/persist` para continuidad operativa
 - fetch server/client segun caso de uso
 
 ### Vistas MVP

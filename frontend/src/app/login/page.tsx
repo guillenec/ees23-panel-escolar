@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { apiFetch } from "@/lib/api-client";
@@ -13,12 +13,20 @@ type LoginResponse = {
 
 export default function LoginPage() {
   const router = useRouter();
+  const token = useAuthStore((s) => s.token);
+  const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const setToken = useAuthStore((s) => s.setToken);
 
   const [email, setEmail] = useState("admin@ees23.local");
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (hasHydrated && token) {
+      router.replace("/dashboard");
+    }
+  }, [hasHydrated, token, router]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

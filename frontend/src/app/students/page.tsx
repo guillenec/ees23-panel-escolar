@@ -17,23 +17,24 @@ type Student = {
 
 export default function StudentsPage() {
   const token = useAuthStore((s) => s.token);
+  const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [students, setStudents] = useState<Student[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token) return;
+    if (!hasHydrated || !token) return;
 
     apiFetch<Student[]>("/students", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(setStudents)
       .catch((err) => setError(err instanceof Error ? err.message : "Error al cargar"));
-  }, [token]);
+  }, [hasHydrated, token]);
 
   return (
     <main className="mx-auto min-h-screen max-w-5xl p-6">
       <h1 className="text-2xl font-semibold text-brand-700">Alumnos</h1>
-      {!token ? (
+      {hasHydrated && !token ? (
         <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-700">
           Inicia sesion para consultar el listado.
         </p>

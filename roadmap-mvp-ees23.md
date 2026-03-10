@@ -8,7 +8,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 
 - Completado: base tecnica inicial (frontend, backend, docker)
 - Completado parcial: modulo de seguimiento pedagogico (alta, listado, edicion, borrado)
-- Siguiente foco: persistencia de sesion en frontend y modulo de informes PDF
+- Completado: persistencia de sesion frontend con Zustand persist
+- Siguiente foco: modulo de informes PDF
 
 ## Fase 0 - Definicion (semana 1)
 

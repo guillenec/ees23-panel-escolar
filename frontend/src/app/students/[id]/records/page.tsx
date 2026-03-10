@@ -18,6 +18,7 @@ type RecordItem = {
 export default function StudentRecordsPage() {
   const { id } = useParams<{ id: string }>();
   const token = useAuthStore((s) => s.token);
+  const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [records, setRecords] = useState<RecordItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ export default function StudentRecordsPage() {
   );
 
   const loadRecords = async () => {
-    if (!token) return;
+    if (!hasHydrated || !token) return;
     try {
       const data = await apiFetch<RecordItem[]>(`/students/${id}/records`, { headers: authHeaders });
       setRecords(data);
@@ -49,7 +50,7 @@ export default function StudentRecordsPage() {
 
   useEffect(() => {
     loadRecords();
-  }, [token, id]);
+  }, [hasHydrated, token, id]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -130,7 +131,7 @@ export default function StudentRecordsPage() {
         </Link>
       </div>
 
-      {!token ? (
+      {hasHydrated && !token ? (
         <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-700">Inicia sesion para continuar.</p>
       ) : (
         <form onSubmit={onSubmit} className="rounded-xl bg-white p-5 shadow-sm">

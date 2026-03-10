@@ -157,6 +157,7 @@ Cambios realizados (iteracion actual):
 - [x] `DELETE /api/v1/students/{student_id}/records/{record_id}`
 - [x] UI frontend para editar/eliminar seguimientos
 - [x] ajuste cliente API para respuestas HTTP 204
+- [x] persistencia de sesion frontend con Zustand persist (`localStorage`)
 
 Commits:
 
