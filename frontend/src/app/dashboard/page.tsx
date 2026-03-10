@@ -17,10 +17,10 @@ export default function DashboardPage() {
           <h2 className="font-medium">Seguimientos</h2>
           <p className="mt-1 text-sm text-gray-600">Modulo en siguiente iteracion.</p>
         </div>
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <Link href="/reports" className="rounded-xl bg-white p-5 shadow-sm hover:shadow">
           <h2 className="font-medium">Informes</h2>
-          <p className="mt-1 text-sm text-gray-600">Modulo en siguiente iteracion.</p>
-        </div>
+          <p className="mt-1 text-sm text-gray-600">Generacion y descarga PDF.</p>
+        </Link>
       </section>
     </main>
   );

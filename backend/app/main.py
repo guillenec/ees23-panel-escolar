@@ -5,7 +5,7 @@ from app.core.config import settings
 from app.db.base import Base
 from app.db.seed import seed_admin
 from app.db.session import SessionLocal, engine
-from app.models import PedagogicalRecord, Student, User  # noqa: F401
+from app.models import PedagogicalRecord, Report, Student, User  # noqa: F401
 
 app = FastAPI(title=settings.app_name, version="0.1.0")
 

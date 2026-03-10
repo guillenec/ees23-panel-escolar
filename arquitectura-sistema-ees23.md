@@ -372,10 +372,9 @@ educacion_especial_2026/
 
 ### 8.5 Informes
 
+- `GET /api/v1/reports`
 - `POST /api/v1/reports/generate`
-- `GET /api/v1/reports/{report_id}`
 - `GET /api/v1/reports/{report_id}/pdf`
-- `POST /api/v1/reports/{report_id}/export/pdf`
 
 ### 8.6 Documentos institucionales
 
@@ -509,7 +508,8 @@ Implementacion sugerida:
 
 Opcion recomendada backend:
 
-- motor HTML + CSS + render a PDF (`WeasyPrint` o `wkhtmltopdf`)
+- implementacion inicial MVP con `reportlab`
+- evolucion sugerida: motor HTML + CSS a PDF (`WeasyPrint` o `wkhtmltopdf`)
 - guardar ruta local y/o subir copia a Drive
 
 ## 13) Despliegue inicial local (on-premise)

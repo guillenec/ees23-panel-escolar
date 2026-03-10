@@ -154,3 +154,24 @@ Cambios realizados:
 Impacto:
 
 - la experiencia de uso mejora en entornos de uso diario escolar
+
+## Sesion de avance - modulo de informes PDF inicial
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- habilitar generacion de informes y descarga PDF
+
+Cambios realizados:
+
+- backend: nuevo modelo `Report` y rutas `GET /reports`, `POST /reports/generate`, `GET /reports/{id}/pdf`
+- backend: generacion de PDF con `reportlab` desde datos del alumno y resumen
+- frontend: nueva pantalla `/reports` para generar informes y descargar PDF
+- frontend: acceso al modulo desde dashboard
+
+Pendientes:
+
+- templates institucionales avanzadas para informes
+- almacenamiento del PDF en Drive (futuro)

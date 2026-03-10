@@ -158,6 +158,7 @@ Cambios realizados (iteracion actual):
 - [x] UI frontend para editar/eliminar seguimientos
 - [x] ajuste cliente API para respuestas HTTP 204
 - [x] persistencia de sesion frontend con Zustand persist (`localStorage`)
+- [x] modulo inicial de informes (API + UI + descarga PDF)
 
 Commits:
 
