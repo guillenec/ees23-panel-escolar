@@ -13,7 +13,8 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado: migraciones Alembic iniciales
 - Completado: tests base backend/frontend
 - Completado: CI base en GitHub Actions (tests + build)
-- Siguiente foco: hardening de auth y cobertura de pruebas funcionales
+- Completado parcial: hardening auth (ruta privada + logout + `/auth/me`)
+- Siguiente foco: cobertura de pruebas funcionales y roles finos por modulo
 
 ## Fase 0 - Definicion (semana 1)
 

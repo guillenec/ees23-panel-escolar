@@ -221,3 +221,19 @@ Cambios realizados:
 - workflow `/.github/workflows/ci.yml` agregado
 - job backend: instala dependencias y ejecuta `pytest`
 - job frontend: `npm ci`, `npm run test`, `npm run build`
+
+## Sesion de avance - auth hardening basico y runbook servidor trabajo
+
+Fecha: 2026-03-10
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- reforzar flujo de sesion y dejar documentado autostart para futura PC servidor
+
+Cambios realizados:
+
+- backend: endpoint `GET /api/v1/auth/me`
+- frontend: guard de rutas privadas y boton de cierre de sesion
+- docs: runbook `docs/runbooks/servidor-trabajo-autostart.md`
+- docs: aclaracion explicita de que el autostart se implementara en la PC del trabajo

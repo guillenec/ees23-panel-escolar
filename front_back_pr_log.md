@@ -162,6 +162,8 @@ Cambios realizados (iteracion actual):
 - [x] Alembic integrado con migracion inicial y upgrade automatico en compose
 - [x] tests base backend/frontend agregados
 - [x] CI base en GitHub Actions (`pytest`, `npm test`, `npm build`)
+- [x] hardening auth basico (`/auth/me`, rutas privadas, logout)
+- [x] runbook de autostart para futura PC servidor trabajo
 
 Commits:
 

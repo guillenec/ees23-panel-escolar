@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
 import { apiFetch } from "@/lib/api-client";
+import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
 type Student = {
@@ -78,14 +79,12 @@ export default function ReportsPage() {
   };
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl p-6">
-      <h1 className="text-2xl font-semibold text-brand-700">Informes</h1>
-      {hasHydrated && !token ? (
-        <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-700">Inicia sesion para continuar.</p>
-      ) : null}
-      {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
+    <RequireAuth>
+      <main className="mx-auto min-h-screen max-w-5xl p-6">
+        <h1 className="text-2xl font-semibold text-brand-700">Informes</h1>
+        {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
 
-      <form onSubmit={onGenerate} className="mt-4 rounded-xl bg-white p-5 shadow-sm">
+        <form onSubmit={onGenerate} className="mt-4 rounded-xl bg-white p-5 shadow-sm">
         <div className="grid gap-3 md:grid-cols-2">
           <label className="text-sm">
             Alumno
@@ -123,11 +122,11 @@ export default function ReportsPage() {
         <button className="mt-4 rounded-lg bg-brand-500 px-4 py-2 text-white" type="submit">
           Generar informe
         </button>
-      </form>
+        </form>
 
-      <section className="mt-6 space-y-3">
-        {reports.map((report) => (
-          <article key={report.id} className="rounded-xl bg-white p-4 shadow-sm">
+        <section className="mt-6 space-y-3">
+          {reports.map((report) => (
+            <article key={report.id} className="rounded-xl bg-white p-4 shadow-sm">
             <p className="text-xs uppercase tracking-wide text-gray-500">{report.period_label}</p>
             <p className="mt-2 line-clamp-3 text-sm text-gray-700">{report.summary_text}</p>
             <a
@@ -138,9 +137,10 @@ export default function ReportsPage() {
             >
               Descargar PDF
             </a>
-          </article>
-        ))}
-      </section>
-    </main>
+            </article>
+          ))}
+        </section>
+      </main>
+    </RequireAuth>
   );
 }

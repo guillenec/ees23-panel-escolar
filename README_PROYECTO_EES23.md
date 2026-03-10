@@ -87,6 +87,19 @@ cp .env.example .env.local
 npm run dev
 ```
 
+## Usuario de prueba actual
+
+- Email: `admin@ees23.local`
+- Clave: `admin123`
+
+Este usuario se crea automaticamente por seed de backend para entorno de desarrollo.
+
+## Nota para despliegue en PC del trabajo
+
+- En esta PC de desarrollo no se configurara autostart del stack.
+- En la PC del trabajo se aplicara autostart con `systemd`.
+- Guia: `docs/runbooks/servidor-trabajo-autostart.md`
+
 ---
 
 Responsable TIC: Guillermo Agustin Neculqueo

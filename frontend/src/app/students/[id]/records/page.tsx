@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 
 import { apiFetch } from "@/lib/api-client";
+import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
 type RecordItem = {
@@ -123,17 +124,15 @@ export default function StudentRecordsPage() {
   };
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-brand-700">Seguimiento pedagogico</h1>
-        <Link href="/students" className="text-sm text-brand-700 underline">
-          Volver a alumnos
-        </Link>
-      </div>
+    <RequireAuth>
+      <main className="mx-auto min-h-screen max-w-5xl p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h1 className="text-2xl font-semibold text-brand-700">Seguimiento pedagogico</h1>
+          <Link href="/students" className="text-sm text-brand-700 underline">
+            Volver a alumnos
+          </Link>
+        </div>
 
-      {hasHydrated && !token ? (
-        <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-700">Inicia sesion para continuar.</p>
-      ) : (
         <form onSubmit={onSubmit} className="rounded-xl bg-white p-5 shadow-sm">
           <div className="grid gap-3 md:grid-cols-2">
             <label className="text-sm">
@@ -184,11 +183,10 @@ export default function StudentRecordsPage() {
           </button>
           {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
         </form>
-      )}
 
-      <section className="mt-6 space-y-3">
-        {records.map((record) => (
-          <article key={record.id} className="rounded-xl bg-white p-4 shadow-sm">
+        <section className="mt-6 space-y-3">
+          {records.map((record) => (
+            <article key={record.id} className="rounded-xl bg-white p-4 shadow-sm">
             {editingId === record.id ? (
               <div className="space-y-2">
                 <input
@@ -262,9 +260,10 @@ export default function StudentRecordsPage() {
                 </div>
               </>
             )}
-          </article>
-        ))}
-      </section>
-    </main>
+            </article>
+          ))}
+        </section>
+      </main>
+    </RequireAuth>
   );
 }

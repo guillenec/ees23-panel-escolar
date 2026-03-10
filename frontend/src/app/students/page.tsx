@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { apiFetch } from "@/lib/api-client";
+import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
 type Student = {
@@ -32,43 +33,40 @@ export default function StudentsPage() {
   }, [hasHydrated, token]);
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl p-6">
-      <h1 className="text-2xl font-semibold text-brand-700">Alumnos</h1>
-      {hasHydrated && !token ? (
-        <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-700">
-          Inicia sesion para consultar el listado.
-        </p>
-      ) : null}
-      {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
+    <RequireAuth>
+      <main className="mx-auto min-h-screen max-w-5xl p-6">
+        <h1 className="text-2xl font-semibold text-brand-700">Alumnos</h1>
+        {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
 
-      <div className="mt-4 overflow-hidden rounded-xl bg-white shadow-sm">
-        <table className="min-w-full text-sm">
-          <thead className="bg-gray-50 text-left text-gray-600">
-            <tr>
-              <th className="px-4 py-3">Apellido y nombre</th>
-              <th className="px-4 py-3">DNI</th>
-              <th className="px-4 py-3">Anio</th>
-              <th className="px-4 py-3">Turno</th>
-              <th className="px-4 py-3">Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student.id} className="border-t border-gray-100">
-                <td className="px-4 py-3">{student.last_name + ", " + student.first_name}</td>
-                <td className="px-4 py-3">{student.dni}</td>
-                <td className="px-4 py-3">{student.school_year ?? "-"}</td>
-                <td className="px-4 py-3">{student.shift ?? "-"}</td>
-                <td className="px-4 py-3">
-                  <Link href={`/students/${student.id}/records`} className="text-brand-700 underline">
-                    Seguimientos
-                  </Link>
-                </td>
+        <div className="mt-4 overflow-hidden rounded-xl bg-white shadow-sm">
+          <table className="min-w-full text-sm">
+            <thead className="bg-gray-50 text-left text-gray-600">
+              <tr>
+                <th className="px-4 py-3">Apellido y nombre</th>
+                <th className="px-4 py-3">DNI</th>
+                <th className="px-4 py-3">Anio</th>
+                <th className="px-4 py-3">Turno</th>
+                <th className="px-4 py-3">Accion</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </main>
+            </thead>
+            <tbody>
+              {students.map((student) => (
+                <tr key={student.id} className="border-t border-gray-100">
+                  <td className="px-4 py-3">{student.last_name + ", " + student.first_name}</td>
+                  <td className="px-4 py-3">{student.dni}</td>
+                  <td className="px-4 py-3">{student.school_year ?? "-"}</td>
+                  <td className="px-4 py-3">{student.shift ?? "-"}</td>
+                  <td className="px-4 py-3">
+                    <Link href={`/students/${student.id}/records`} className="text-brand-700 underline">
+                      Seguimientos
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </RequireAuth>
   );
 }
