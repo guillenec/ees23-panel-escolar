@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { apiFetch } from "@/lib/api-client";
+import { apiFetchWithRefresh } from "@/lib/api-client";
 import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -18,6 +18,9 @@ type Student = {
 
 export default function StudentsPage() {
   const token = useAuthStore((s) => s.token);
+  const refreshToken = useAuthStore((s) => s.refreshToken);
+  const setSession = useAuthStore((s) => s.setSession);
+  const clearSession = useAuthStore((s) => s.clearSession);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [students, setStudents] = useState<Student[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -25,12 +28,13 @@ export default function StudentsPage() {
   useEffect(() => {
     if (!hasHydrated || !token) return;
 
-    apiFetch<Student[]>("/students", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    apiFetchWithRefresh<Student[]>(
+      "/students",
+      { accessToken: token, refreshToken, setSession, clearSession }
+    )
       .then(setStudents)
       .catch((err) => setError(err instanceof Error ? err.message : "Error al cargar"));
-  }, [hasHydrated, token]);
+  }, [hasHydrated, token, refreshToken, setSession, clearSession]);
 
   return (
     <RequireAuth>

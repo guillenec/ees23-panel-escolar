@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
-import { apiFetch } from "@/lib/api-client";
+import { apiFetchWithRefresh } from "@/lib/api-client";
 import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -27,6 +27,9 @@ type CurrentUser = {
 
 export default function ReportsPage() {
   const token = useAuthStore((s) => s.token);
+  const refreshToken = useAuthStore((s) => s.refreshToken);
+  const setSession = useAuthStore((s) => s.setSession);
+  const clearSession = useAuthStore((s) => s.clearSession);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [students, setStudents] = useState<Student[]>([]);
   const [reports, setReports] = useState<ReportItem[]>([]);
@@ -36,17 +39,22 @@ export default function ReportsPage() {
   const [summaryText, setSummaryText] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const authHeaders = useMemo(
-    () => ({ Authorization: `Bearer ${token}`, "Content-Type": "application/json" }),
-    [token]
-  );
-
   const loadData = async () => {
     if (!hasHydrated || !token) return;
     try {
       const [studentsData, reportsData] = await Promise.all([
-        apiFetch<Student[]>("/students", { headers: authHeaders }),
-        apiFetch<ReportItem[]>("/reports", { headers: authHeaders })
+        apiFetchWithRefresh<Student[]>("/students", {
+          accessToken: token,
+          refreshToken,
+          setSession,
+          clearSession
+        }),
+        apiFetchWithRefresh<ReportItem[]>("/reports", {
+          accessToken: token,
+          refreshToken,
+          setSession,
+          clearSession
+        })
       ]);
       setStudents(studentsData);
       setReports(reportsData);
@@ -61,7 +69,12 @@ export default function ReportsPage() {
   const loadCurrentUser = async () => {
     if (!hasHydrated || !token) return;
     try {
-      const me = await apiFetch<CurrentUser>("/auth/me", { headers: authHeaders });
+      const me = await apiFetchWithRefresh<CurrentUser>("/auth/me", {
+        accessToken: token,
+        refreshToken,
+        setSession,
+        clearSession
+      });
       setCurrentUser(me);
     } catch {
       setCurrentUser(null);
@@ -71,7 +84,7 @@ export default function ReportsPage() {
   useEffect(() => {
     loadCurrentUser();
     loadData();
-  }, [hasHydrated, token]);
+  }, [hasHydrated, token, refreshToken, setSession, clearSession]);
 
   const onGenerate = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,15 +92,18 @@ export default function ReportsPage() {
     setError(null);
 
     try {
-      await apiFetch<ReportItem>("/reports/generate", {
+      await apiFetchWithRefresh<ReportItem>(
+        "/reports/generate",
+        { accessToken: token, refreshToken, setSession, clearSession },
+        {
         method: "POST",
-        headers: authHeaders,
         body: JSON.stringify({
           student_id: studentId,
           period_label: periodLabel,
           summary_text: summaryText || null
         })
-      });
+        }
+      );
       setSummaryText("");
       await loadData();
     } catch (err) {

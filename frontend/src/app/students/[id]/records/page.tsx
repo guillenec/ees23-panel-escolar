@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-import { apiFetch } from "@/lib/api-client";
+import { apiFetchWithRefresh } from "@/lib/api-client";
 import { RequireAuth } from "@/components/auth/require-auth";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -25,6 +25,9 @@ type CurrentUser = {
 export default function StudentRecordsPage() {
   const { id } = useParams<{ id: string }>();
   const token = useAuthStore((s) => s.token);
+  const refreshToken = useAuthStore((s) => s.refreshToken);
+  const setSession = useAuthStore((s) => s.setSession);
+  const clearSession = useAuthStore((s) => s.clearSession);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   const [records, setRecords] = useState<RecordItem[]>([]);
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
@@ -41,15 +44,13 @@ export default function StudentRecordsPage() {
   const [editActions, setEditActions] = useState("");
   const [editNextSteps, setEditNextSteps] = useState("");
 
-  const authHeaders = useMemo(
-    () => ({ Authorization: `Bearer ${token}`, "Content-Type": "application/json" }),
-    [token]
-  );
-
   const loadRecords = async () => {
     if (!hasHydrated || !token) return;
     try {
-      const data = await apiFetch<RecordItem[]>(`/students/${id}/records`, { headers: authHeaders });
+      const data = await apiFetchWithRefresh<RecordItem[]>(
+        `/students/${id}/records`,
+        { accessToken: token, refreshToken, setSession, clearSession }
+      );
       setRecords(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al cargar seguimientos");
@@ -59,7 +60,10 @@ export default function StudentRecordsPage() {
   const loadCurrentUser = async () => {
     if (!hasHydrated || !token) return;
     try {
-      const me = await apiFetch<CurrentUser>("/auth/me", { headers: authHeaders });
+      const me = await apiFetchWithRefresh<CurrentUser>(
+        "/auth/me",
+        { accessToken: token, refreshToken, setSession, clearSession }
+      );
       setCurrentUser(me);
     } catch {
       setCurrentUser(null);
@@ -69,7 +73,7 @@ export default function StudentRecordsPage() {
   useEffect(() => {
     loadCurrentUser();
     loadRecords();
-  }, [hasHydrated, token, id]);
+  }, [hasHydrated, token, refreshToken, setSession, clearSession, id]);
 
   const canManageRecord = (record: RecordItem) => {
     if (!currentUser) return false;
@@ -83,16 +87,19 @@ export default function StudentRecordsPage() {
     setError(null);
 
     try {
-      await apiFetch(`/students/${id}/records`, {
+      await apiFetchWithRefresh(
+        `/students/${id}/records`,
+        { accessToken: token, refreshToken, setSession, clearSession },
+        {
         method: "POST",
-        headers: authHeaders,
         body: JSON.stringify({
           record_date: recordDate,
           observation,
           actions_taken: actionsTaken || null,
           next_steps: nextSteps || null
         })
-      });
+        }
+      );
       setObservation("");
       setActionsTaken("");
       setNextSteps("");
@@ -115,16 +122,19 @@ export default function StudentRecordsPage() {
   const saveEdit = async (recordId: string) => {
     if (!token) return;
     try {
-      await apiFetch(`/students/${id}/records/${recordId}`, {
+      await apiFetchWithRefresh(
+        `/students/${id}/records/${recordId}`,
+        { accessToken: token, refreshToken, setSession, clearSession },
+        {
         method: "PATCH",
-        headers: authHeaders,
         body: JSON.stringify({
           record_date: editDate,
           observation: editObservation,
           actions_taken: editActions || null,
           next_steps: editNextSteps || null
         })
-      });
+        }
+      );
       setEditingId(null);
       await loadRecords();
     } catch (err) {
@@ -135,10 +145,13 @@ export default function StudentRecordsPage() {
   const deleteRecord = async (recordId: string) => {
     if (!token) return;
     try {
-      await apiFetch(`/students/${id}/records/${recordId}`, {
+      await apiFetchWithRefresh(
+        `/students/${id}/records/${recordId}`,
+        { accessToken: token, refreshToken, setSession, clearSession },
+        {
         method: "DELETE",
-        headers: authHeaders
-      });
+        }
+      );
       if (editingId === recordId) setEditingId(null);
       await loadRecords();
     } catch (err) {
