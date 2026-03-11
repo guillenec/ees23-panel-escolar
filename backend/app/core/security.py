@@ -17,6 +17,16 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def create_access_token(subject: str, roles: list[str]) -> str:
-    expires_at = datetime.now(timezone.utc) + timedelta(minutes=settings.access_token_minutes)
-    payload = {"sub": subject, "roles": roles, "exp": expires_at}
+    return _create_token(subject, roles, token_type="access", minutes=settings.access_token_minutes)
+
+
+def create_refresh_token(subject: str, roles: list[str]) -> str:
+    return _create_token(
+        subject, roles, token_type="refresh", minutes=settings.refresh_token_minutes
+    )
+
+
+def _create_token(subject: str, roles: list[str], token_type: str, minutes: int) -> str:
+    expires_at = datetime.now(timezone.utc) + timedelta(minutes=minutes)
+    payload = {"sub": subject, "roles": roles, "token_type": token_type, "exp": expires_at}
     return jwt.encode(payload, settings.jwt_secret_key, algorithm=settings.jwt_algorithm)

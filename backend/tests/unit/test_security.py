@@ -1,7 +1,12 @@
 from jose import jwt
 
 from app.core.config import settings
-from app.core.security import create_access_token, get_password_hash, verify_password
+from app.core.security import (
+    create_access_token,
+    create_refresh_token,
+    get_password_hash,
+    verify_password,
+)
 
 
 def test_password_hash_and_verify() -> None:
@@ -18,3 +23,13 @@ def test_create_access_token_contains_subject_and_roles() -> None:
 
     assert payload["sub"] == "user-123"
     assert payload["roles"] == ["DOCENTE"]
+    assert payload["token_type"] == "access"
+
+
+def test_create_refresh_token_contains_subject_and_type() -> None:
+    token = create_refresh_token("user-123", ["DOCENTE"])
+    payload = jwt.decode(token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm])
+
+    assert payload["sub"] == "user-123"
+    assert payload["roles"] == ["DOCENTE"]
+    assert payload["token_type"] == "refresh"

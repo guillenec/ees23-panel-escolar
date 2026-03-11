@@ -6,10 +6,10 @@ import { useAuthStore } from "@/store/auth-store";
 
 export function LogoutButton() {
   const router = useRouter();
-  const setToken = useAuthStore((s) => s.setToken);
+  const clearSession = useAuthStore((s) => s.clearSession);
 
   const onLogout = () => {
-    setToken(null);
+    clearSession();
     router.replace("/login");
   };
 

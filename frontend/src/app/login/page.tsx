@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/auth-store";
 
 type LoginResponse = {
   access_token: string;
+  refresh_token: string;
   token_type: string;
 };
 
@@ -15,7 +16,7 @@ export default function LoginPage() {
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
-  const setToken = useAuthStore((s) => s.setToken);
+  const setSession = useAuthStore((s) => s.setSession);
 
   const [email, setEmail] = useState("admin@ees23.local");
   const [password, setPassword] = useState("admin123");
@@ -38,7 +39,7 @@ export default function LoginPage() {
         method: "POST",
         body: JSON.stringify({ email, password })
       });
-      setToken(data.access_token);
+      setSession(data.access_token, data.refresh_token);
       router.push("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "No se pudo iniciar sesion");
