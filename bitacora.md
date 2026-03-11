@@ -346,3 +346,23 @@ Pendientes:
 
 - integrar refresh automatico ante `401` en cliente frontend
 - agregar pruebas de integracion para flujo `/auth/refresh`
+
+## Sesion de avance - auto refresh en cliente + test de integracion
+
+Fecha: 2026-03-11
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- cerrar el ciclo minimo de renovacion de sesion para evitar relogin manual por expiracion de access token
+
+Cambios realizados:
+
+- frontend: `apiFetch` ahora expone `ApiError` con `status` HTTP para control de errores de auth
+- frontend: nuevo helper `apiFetchWithRefresh` que ante `401` intenta `POST /auth/refresh`, actualiza sesion y reintenta la request una vez
+- frontend: pantallas `dashboard`, `students`, `students/[id]/records` y `reports` migradas a helper con refresh automatico
+- backend: nuevo test de integracion `backend/tests/integration/test_auth_refresh.py` para validar renovacion valida y rechazo de access token en `/auth/refresh`
+
+Pendientes:
+
+- agregar cobertura frontend para helper de refresh en pruebas unitarias

@@ -173,6 +173,8 @@ Cambios realizados (iteracion actual):
 - [x] tests integracion authz para endpoints (`backend/tests/integration/test_authz_endpoints.py`)
 - [x] dashboards separados por rol + redireccion inteligente desde `/dashboard`
 - [x] base de refresh token: endpoint `/auth/refresh` + sesion frontend con `refreshToken`
+- [x] refresh automatico en cliente ante `401` con retry unico y logout si refresh falla
+- [x] test integracion backend para `/auth/refresh` (caso valido + token invalido)
 
 Commits:
 
@@ -193,3 +195,4 @@ Commits:
 - `feat(dashboard): split role dashboards and role-based redirect` (`4a590a3`)
 - `docs(worklog): register latest authz and dashboard commits` (`9eb72f5`)
 - `feat(auth): add refresh token foundation across API and frontend session` (`367e65f`)
+- `feat(auth): add client auto-refresh flow and auth refresh integration tests` (`6ed376d`)
