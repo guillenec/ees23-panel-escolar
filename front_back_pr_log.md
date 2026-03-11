@@ -172,6 +172,7 @@ Cambios realizados (iteracion actual):
 - [x] UI alineada a permisos (acciones visibles segun rol/autoria)
 - [x] tests integracion authz para endpoints (`backend/tests/integration/test_authz_endpoints.py`)
 - [x] dashboards separados por rol + redireccion inteligente desde `/dashboard`
+- [x] base de refresh token: endpoint `/auth/refresh` + sesion frontend con `refreshToken`
 
 Commits:
 
@@ -190,3 +191,5 @@ Commits:
 - `feat(frontend): align permission visibility with auth rules` (`160071b`)
 - `test(authz): add integration checks for role-protected student writes` (`7be8490`)
 - `feat(dashboard): split role dashboards and role-based redirect` (`4a590a3`)
+- `docs(worklog): register latest authz and dashboard commits` (`9eb72f5`)
+- `feat(auth): add refresh token foundation across API and frontend session` (`367e65f`)

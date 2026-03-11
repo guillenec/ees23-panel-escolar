@@ -324,3 +324,25 @@ Cambios realizados:
 - backend: dependencia `httpx` agregada para `TestClient`
 - frontend: rutas nuevas `/dashboard/admin` y `/dashboard/docente`
 - frontend: `/dashboard` ahora redirige segun rol obtenido desde `/auth/me`
+
+## Sesion de avance - base de refresh token
+
+Fecha: 2026-03-11
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- retomar continuidad del hardening de sesion con base de refresh token
+
+Cambios realizados:
+
+- backend: login JSON (`/auth/login`) y OAuth form (`/auth/token`) ahora devuelven `access_token` + `refresh_token`
+- backend: nuevo endpoint `POST /api/v1/auth/refresh` para renovar sesion con refresh token valido
+- backend: JWT incorpora claim `token_type` (`access` o `refresh`) para separar usos
+- backend: tests unitarios actualizados en `backend/tests/unit/test_security.py`
+- frontend: store de auth persiste `token` y `refreshToken`; login/logout ya usan sesion completa
+
+Pendientes:
+
+- integrar refresh automatico ante `401` en cliente frontend
+- agregar pruebas de integracion para flujo `/auth/refresh`
