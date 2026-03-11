@@ -366,3 +366,22 @@ Cambios realizados:
 Pendientes:
 
 - agregar cobertura frontend para helper de refresh en pruebas unitarias
+
+## Sesion de avance - cobertura frontend helper refresh
+
+Fecha: 2026-03-11
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- validar con pruebas unitarias el comportamiento de auto refresh en cliente
+
+Cambios realizados:
+
+- frontend: nuevo archivo `frontend/src/lib/api-client.test.ts`
+- se cubren escenarios de request directa OK, `401` + refresh exitoso con retry, refresh fallido con limpieza de sesion y error por sesion inexistente
+- ejecucion local frontend: `npm run test -- --no-cache` OK (6 tests)
+
+Pendientes:
+
+- ejecutar bateria backend cuando este disponible `pytest` en entorno

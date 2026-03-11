@@ -175,6 +175,7 @@ Cambios realizados (iteracion actual):
 - [x] base de refresh token: endpoint `/auth/refresh` + sesion frontend con `refreshToken`
 - [x] refresh automatico en cliente ante `401` con retry unico y logout si refresh falla
 - [x] test integracion backend para `/auth/refresh` (caso valido + token invalido)
+- [x] pruebas unitarias frontend del helper `apiFetchWithRefresh`
 
 Commits:
 
@@ -196,3 +197,4 @@ Commits:
 - `docs(worklog): register latest authz and dashboard commits` (`9eb72f5`)
 - `feat(auth): add refresh token foundation across API and frontend session` (`367e65f`)
 - `feat(auth): add client auto-refresh flow and auth refresh integration tests` (`6ed376d`)
+- `test(frontend): add unit coverage for api refresh helper` (`0786716`)
