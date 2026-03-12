@@ -182,6 +182,8 @@ Cambios realizados (iteracion actual):
 - [x] base backend de integracion Drive por service account (`/integrations/drive/ping`)
 - [x] configuracion de entorno para Drive (`GOOGLE_DRIVE_*`) y dependencias Python
 - [x] test de integracion para endpoint de ping Drive con control por rol
+- [x] endpoint `GET /integrations/drive/items` con filtros basicos (`parent_id`, `search`, `folders_only`)
+- [x] test de integracion para listado Drive y permisos por rol docente
 
 Commits:
 

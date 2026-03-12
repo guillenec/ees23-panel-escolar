@@ -441,3 +441,26 @@ Pendiente proxima sesion:
 
 - probar `GET /api/v1/integrations/drive/ping` en entorno activo con usuario `ADMIN`
 - iniciar endpoint de listado documental filtrable (anio/localidad/nivel/institucion/docente/estudiante)
+
+## Sesion de avance - listado documental Drive (base)
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- continuar integracion Drive con un endpoint de listado navegable para la UI
+
+Cambios realizados:
+
+- backend: `drive_client` ahora soporta listado por carpeta con filtros basicos
+- backend: nuevo endpoint `GET /api/v1/integrations/drive/items`
+- filtros disponibles: `parent_id`, `search`, `folders_only`
+- permisos: listado habilitado para `ADMIN` y `DOCENTE` (ping sigue solo `ADMIN`)
+- tests: ampliacion en `backend/tests/integration/test_drive_ping.py` para listado y control de rol
+- docs: actualizacion de worklog y bitacora
+
+Pendientes:
+
+- conectar frontend (explorador documental) contra `/integrations/drive/items`
+- mapear filtros pedagogicos (anio/localidad/nivel/institucion/estudiante) sobre metadatos indexados
