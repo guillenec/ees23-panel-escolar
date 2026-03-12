@@ -204,8 +204,7 @@ Commits:
 - `feat(auth): add refresh token foundation across API and frontend session` (`367e65f`)
 - `feat(auth): add client auto-refresh flow and auth refresh integration tests` (`6ed376d`)
 - `test(frontend): add unit coverage for api refresh helper` (`0786716`)
-- pendiente: commit de iteracion docs + UI profesional de portada/dashboards
-- pendiente: commit de base integracion Drive service account + validacion endpoint
+- `feat(integrations): bootstrap drive service account flow and UI polish` (`da2f7bf`)
 
 Archivos clave (iteracion docs + UI):
 
