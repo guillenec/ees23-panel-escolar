@@ -207,6 +207,8 @@ Commits:
 - `feat(auth): add client auto-refresh flow and auth refresh integration tests` (`6ed376d`)
 - `test(frontend): add unit coverage for api refresh helper` (`0786716`)
 - `feat(integrations): bootstrap drive service account flow and UI polish` (`da2f7bf`)
+- `docs(bitacora): log session closure and next steps` (`493f5e0`)
+- `feat(integrations): add drive folder listing endpoint and filters` (`25f3be8`)
 
 Archivos clave (iteracion docs + UI):
 
