@@ -414,3 +414,30 @@ Pendientes:
 
 - conectar UI de explorador documental a endpoints reales de integracion
 - definir importador de alumnos/sedes desde CSV con validaciones de datos
+
+## Cierre de sesion - commits y estado
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- cerrar iteracion de documentacion, mejora visual frontend y base tecnica de integracion Drive
+
+Cambios consolidados:
+
+- commit `da2f7bf`: integracion base Drive por service account + endpoint ping + mejoras UI portada/dashboards + docs actualizadas
+- commit `c8b5c29`: actualizacion de `front_back_pr_log.md` con registro del commit tecnico
+- variables de entorno Drive definidas para backend (`GOOGLE_DRIVE_*`)
+- credencial local movida a ruta segura fuera del repo (`/home/guillenec/.config/ees23/drive-sa.json`)
+
+Estado al cierre:
+
+- rama `main` queda adelantada localmente respecto a `origin/main`
+- pruebas frontend OK (`npm run test -- --no-cache`)
+- pruebas backend pendientes por entorno sin `pytest`
+
+Pendiente proxima sesion:
+
+- probar `GET /api/v1/integrations/drive/ping` en entorno activo con usuario `ADMIN`
+- iniciar endpoint de listado documental filtrable (anio/localidad/nivel/institucion/docente/estudiante)
