@@ -176,6 +176,12 @@ Cambios realizados (iteracion actual):
 - [x] refresh automatico en cliente ante `401` con retry unico y logout si refresh falla
 - [x] test integracion backend para `/auth/refresh` (caso valido + token invalido)
 - [x] pruebas unitarias frontend del helper `apiFetchWithRefresh`
+- [x] actualizacion de docs troncales con estrategia Drive personal -> institucional
+- [x] incorporacion de referencia operativa `CEE_26/INTEGRACION_APP_EDUCACION_ESPECIAL.md`
+- [x] redisenio visual de portada y dashboards por rol (admin/docente)
+- [x] base backend de integracion Drive por service account (`/integrations/drive/ping`)
+- [x] configuracion de entorno para Drive (`GOOGLE_DRIVE_*`) y dependencias Python
+- [x] test de integracion para endpoint de ping Drive con control por rol
 
 Commits:
 
@@ -198,3 +204,20 @@ Commits:
 - `feat(auth): add refresh token foundation across API and frontend session` (`367e65f`)
 - `feat(auth): add client auto-refresh flow and auth refresh integration tests` (`6ed376d`)
 - `test(frontend): add unit coverage for api refresh helper` (`0786716`)
+- pendiente: commit de iteracion docs + UI profesional de portada/dashboards
+- pendiente: commit de base integracion Drive service account + validacion endpoint
+
+Archivos clave (iteracion docs + UI):
+
+- `README_PROYECTO_EES23.md`
+- `arquitectura-sistema-ees23.md`
+- `roadmap-mvp-ees23.md`
+- `frontend/src/app/page.tsx`
+- `frontend/src/app/dashboard/admin/page.tsx`
+- `frontend/src/app/dashboard/docente/page.tsx`
+- `backend/app/api/v1/integrations.py`
+- `backend/app/services/drive_client.py`
+- `backend/tests/integration/test_drive_ping.py`
+- `backend/app/core/config.py`
+- `backend/.env.example`
+- `backend/requirements.txt`

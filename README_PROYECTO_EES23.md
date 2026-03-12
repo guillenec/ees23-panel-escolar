@@ -10,6 +10,7 @@ Este sistema **complementa SAJE** para resolver necesidades de gestion interna d
 - Reducir tiempos administrativos y mejorar trazabilidad pedagogica.
 - Dar una herramienta simple para docentes, con acceso por roles.
 - Iniciar en red local institucional (Linux) y dejar base lista para despliegue online futuro.
+- Incorporar navegacion documental (Inclusion/Sede) con acceso directo a archivos de Drive.
 
 ## Alcance funcional (MVP)
 
@@ -19,6 +20,7 @@ Este sistema **complementa SAJE** para resolver necesidades de gestion interna d
 - Generacion de informes desde plantillas institucionales.
 - Exportacion PDF.
 - Acceso centralizado a documentos institucionales (Drive/Docs).
+- Explorador documental por filtros (anio, localidad, nivel, institucion, estudiante).
 
 ## Decision clave de arquitectura
 
@@ -26,6 +28,7 @@ Se adopta un enfoque **hibrido**:
 
 - `PostgreSQL` como fuente principal del sistema.
 - `Google Sheets` solo para exportes, vistas compartidas e interoperabilidad simple.
+- `Google Drive` como origen documental externo, comenzando por drive personal para pruebas controladas.
 
 Esto evita depender de Sheets como base transaccional y reduce costo de migracion futura.
 
@@ -35,6 +38,15 @@ Esto evita depender de Sheets como base transaccional y reduce costo de migracio
 - Backend: FastAPI, SQLAlchemy, Alembic, PostgreSQL, JWT, OpenAPI/Swagger.
 - Integraciones: Google Drive, Google Docs, Google Sheets.
 - Infra: despliegue inicial on-premise Linux en red escolar.
+
+## Estrategia de integracion Drive (transicion)
+
+- Fase actual: usar drive personal como sandbox para evitar impactos en datos sensibles institucionales.
+- Fase posterior: migrar la misma logica a drive institucional con permisos por rol y auditoria.
+- Estructura fuente validada en `/home/guillenec/repos-guille/CEE_26`.
+- Documento de integracion de referencia: `/home/guillenec/repos-guille/CEE_26/INTEGRACION_APP_EDUCACION_ESPECIAL.md`.
+- Carpeta de pruebas compartida para MVP:
+  - `https://drive.google.com/drive/folders/1NAARl6W__6EFN1Hv1mL8He5FAE2XfzA-?usp=sharing`
 
 ## Documentacion del proyecto
 
@@ -57,7 +69,8 @@ Esto evita depender de Sheets como base transaccional y reduce costo de migracio
 - Bootstrap tecnico inicial creado (`backend/`, `frontend/`, `infra/docker/`).
 - Seguimiento pedagogico inicial implementado (API + UI basica).
 - Informes iniciales implementados (generacion y descarga PDF).
-- Pendiente: consolidar autenticacion avanzada, integraciones Google, migraciones y tests.
+- Dashboards separados por rol y redireccion inteligente operativos.
+- Pendiente: consolidar integracion documental de Drive (fase personal -> institucional) y E2E de permisos.
 
 ## Arranque rapido (desarrollo)
 

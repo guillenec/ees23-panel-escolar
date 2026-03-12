@@ -385,3 +385,32 @@ Cambios realizados:
 Pendientes:
 
 - ejecutar bateria backend cuando este disponible `pytest` en entorno
+
+## Sesion de avance - base de integracion Drive por service account
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- habilitar conectividad inicial segura con Drive personal para avanzar el modulo documental
+
+Cambios realizados:
+
+- backend: nuevas variables `GOOGLE_DRIVE_SERVICE_ACCOUNT_FILE`, `GOOGLE_DRIVE_ROOT_FOLDER_ID`, `GOOGLE_DRIVE_SOURCE`
+- backend: endpoint protegido `GET /api/v1/integrations/drive/ping` (solo `ADMIN`) para validar acceso a carpeta raiz
+- backend: servicio `drive_client` para leer credenciales de cuenta de servicio y consultar metadatos de carpeta
+- backend: nuevas dependencias `google-auth` y `google-api-python-client`
+- backend: test de integracion `backend/tests/integration/test_drive_ping.py`
+- docs: worklog y bitacoras actualizadas con la estrategia Drive personal -> institucional
+
+Decisiones:
+
+- no guardar el JSON de credenciales dentro del repo
+- usar ruta local segura (`/home/guillenec/.config/ees23/drive-sa.json`) y referenciarla por `.env`
+- mantener fase actual en drive personal y replicar flujo luego en drive institucional
+
+Pendientes:
+
+- conectar UI de explorador documental a endpoints reales de integracion
+- definir importador de alumnos/sedes desde CSV con validaciones de datos

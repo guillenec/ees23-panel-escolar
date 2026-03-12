@@ -20,7 +20,16 @@ Entregar un sistema interno usable por docentes para alumnos, seguimientos, info
 - Completado parcial: reflejo de permisos en UI de seguimientos/informes
 - Completado parcial: dashboards separados por rol (`/dashboard/admin`, `/dashboard/docente`)
 - Completado: pruebas integracion authz para endpoints sensibles
-- Siguiente foco: pruebas funcionales E2E de autorizacion por endpoint y pantalla
+- Completado: organizacion documental base en repositorio operativo externo (`/home/guillenec/repos-guille/CEE_26`)
+- Siguiente foco: integrar explorador documental (Drive personal) y luego replicar en Drive institucional
+
+## Linea de trabajo inmediata (iteracion activa)
+
+1. Integrar indice de carpetas/documentos desde estructura validada de `CEE_26`.
+2. Exponer API de consulta con filtros: anio, localidad, nivel, institucion, docente, estudiante.
+3. Crear UI de navegacion documental con botones de apertura/edicion en Drive.
+4. Mantener `origen` (`personal`/`institucional`) para no mezclar etapas.
+5. Validar permisos por rol antes de pasar de drive personal al institucional.
 
 ## Fase 0 - Definicion (semana 1)
 
@@ -84,6 +93,8 @@ Entregables:
 - listado de documentos institucionales
 - vinculo con Google Drive/Docs
 - exportes a Google Sheets (alumnos y seguimientos)
+- navegacion Inclusion/Sede con filtros y apertura directa en Drive
+- soporte de origen documental (`personal`/`institucional`) para despliegue gradual
 
 Entregables:
 

@@ -6,30 +6,56 @@ import { RequireAuth } from "@/components/auth/require-auth";
 export default function DocenteDashboardPage() {
   return (
     <RequireAuth>
-      <main className="mx-auto min-h-screen max-w-5xl p-6">
-        <header className="mb-6 rounded-2xl bg-white p-6 shadow-sm">
-          <div className="flex items-start justify-between gap-3">
+      <main className="mx-auto min-h-screen max-w-6xl px-6 py-8">
+        <header className="mb-6 rounded-3xl border border-white/70 bg-white/85 p-6 shadow-xl shadow-slate-200/70 backdrop-blur">
+          <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-semibold text-brand-700">Panel DOCENTE</h1>
-              <p className="text-sm text-gray-600">Seguimiento pedagogico e informes propios.</p>
+              <p className="inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-700">
+                Rol docente
+              </p>
+              <h1 className="mt-3 text-2xl font-semibold text-slate-900 md:text-3xl">Panel de seguimiento pedagogico</h1>
+              <p className="mt-1 text-sm text-slate-600">
+                Vista de trabajo diario para alumnos asignados, registros e informes propios.
+              </p>
             </div>
             <LogoutButton />
           </div>
         </header>
 
-        <section className="grid gap-4 md:grid-cols-3">
-          <Link href="/students" className="rounded-xl bg-white p-5 shadow-sm hover:shadow">
-            <h2 className="font-medium">Alumnos</h2>
-            <p className="mt-1 text-sm text-gray-600">Consulta y acceso a seguimientos.</p>
+        <section className="mb-6 grid gap-3 md:grid-cols-3">
+          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <p className="text-xs uppercase tracking-wide text-slate-500">Ciclo activo</p>
+            <p className="mt-2 text-sm font-semibold text-slate-900">Planificacion y seguimiento 2026</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <p className="text-xs uppercase tracking-wide text-slate-500">Objetivo diario</p>
+            <p className="mt-2 text-sm font-semibold text-slate-900">Registrar avances y acuerdos por alumno</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <p className="text-xs uppercase tracking-wide text-slate-500">Integracion</p>
+            <p className="mt-2 text-sm font-semibold text-slate-900">Apertura directa de documentos en Drive</p>
+          </article>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <Link
+            href="/students"
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow"
+          >
+            <h2 className="text-base font-semibold text-slate-900">Alumnos</h2>
+            <p className="mt-1 text-sm text-slate-600">Consulta de perfiles y acceso directo al historial de registros.</p>
           </Link>
-          <Link href="/reports" className="rounded-xl bg-white p-5 shadow-sm hover:shadow">
-            <h2 className="font-medium">Informes</h2>
-            <p className="mt-1 text-sm text-gray-600">Generacion y descarga PDF.</p>
+          <Link
+            href="/reports"
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow"
+          >
+            <h2 className="text-base font-semibold text-slate-900">Informes</h2>
+            <p className="mt-1 text-sm text-slate-600">Generacion y descarga de PDF para seguimiento institucional.</p>
           </Link>
-          <div className="rounded-xl bg-white p-5 shadow-sm">
-            <h2 className="font-medium">Notas</h2>
-            <p className="mt-1 text-sm text-gray-600">No disponible para editar datos sensibles.</p>
-          </div>
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="text-base font-semibold text-slate-900">Permisos</h2>
+            <p className="mt-1 text-sm text-slate-600">Edicion limitada a recursos propios y datos no sensibles.</p>
+          </article>
         </section>
       </main>
     </RequireAuth>

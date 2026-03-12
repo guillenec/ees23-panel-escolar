@@ -27,6 +27,7 @@ Si, la recomendacion es correcta: **arrancar hibrido**.
 - `PostgreSQL`: base de datos principal (verdad del sistema)
 - `Google Sheets`: exportes, vistas compartidas y carga/descarga simple
 - `Google Drive/Docs`: almacenamiento de documentos y plantillas
+- `Indice documental interno`: metadatos para navegar Inclusion/Sede desde la app
 
 ### Por que no usar solo Sheets
 
@@ -488,11 +489,21 @@ Implementacion sugerida:
 
 ## 11) Integracion con Google Workspace
 
+### Estrategia de despliegue por etapas
+
+- Etapa actual (MVP seguro): drive personal como entorno de prueba y validacion UX.
+- Etapa objetivo: drive institucional con permisos reales y datos sensibles.
+- Regla: misma estructura y mismos flujos funcionales en ambas etapas para migrar sin rehacer UI/servicios.
+- Referencia operativa de estructura documental: `/home/guillenec/repos-guille/CEE_26`.
+- Documento de integracion: `/home/guillenec/repos-guille/CEE_26/INTEGRACION_APP_EDUCACION_ESPECIAL.md`.
+
 ### Google Drive
 
 - guardar `drive_file_id` en DB
 - acceder via cuenta de servicio
 - carpetas por alumno solo si aplica flujo documental
+- soportar `origen` de documento (`personal`, `institucional`) para transicion controlada
+- evitar dependencias por nombre de carpeta; resolver por IDs estables
 
 ### Google Docs
 
@@ -503,6 +514,16 @@ Implementacion sugerida:
 
 - exporte no bloqueante mediante `sync_jobs`
 - importes controlados solo para migraciones/carga inicial
+
+### Estructura documental objetivo (Inclusion/Sede)
+
+- Inclusion base: `inclusion/<anio>/<localidad>/<nivel>/<institucion>/<estudiante>/`
+- Sede base: `sede/<anio>/estudiantes/<estudiante>/`
+- Subcarpetas estandar por estudiante:
+  - `01_documentacion_estudiante`
+  - `02_docentes/<docente>`
+  - `03_actas_y_seguimiento`
+  - `99_importados_historicos` (cuando aplique)
 
 ## 12) Generacion de PDF
 
