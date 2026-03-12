@@ -184,6 +184,7 @@ Cambios realizados (iteracion actual):
 - [x] test de integracion para endpoint de ping Drive con control por rol
 - [x] endpoint `GET /integrations/drive/items` con filtros basicos (`parent_id`, `search`, `folders_only`)
 - [x] test de integracion para listado Drive y permisos por rol docente
+- [x] fix de arranque backend: Settings alineado con variables `.env` para evitar caida de `/docs`
 
 Commits:
 

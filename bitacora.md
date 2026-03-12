@@ -464,3 +464,27 @@ Pendientes:
 
 - conectar frontend (explorador documental) contra `/integrations/drive/items`
 - mapear filtros pedagogicos (anio/localidad/nivel/institucion/estudiante) sobre metadatos indexados
+
+## Sesion de soporte - recuperacion backend/docs
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- resolver caida de Swagger (`/docs` en blanco) luego de cambios de configuracion
+
+Causa detectada:
+
+- `Settings` de backend no declaraba variables existentes en `.env` (`GOOGLE_CLIENT_*`, `OPENROUTER_*`)
+- Pydantic cortaba el arranque con `ValidationError` por campos extra
+
+Correccion aplicada:
+
+- se agregaron campos faltantes en `backend/app/core/config.py`
+- se reinicio backend en Docker Compose
+- validacion HTTP: `/docs` y `/openapi.json` vuelven `200`
+
+Pendiente:
+
+- ejecutar prueba funcional de login en Swagger para confirmar flujo completo

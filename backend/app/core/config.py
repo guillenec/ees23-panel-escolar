@@ -16,6 +16,14 @@ class Settings(BaseSettings):
     refresh_token_minutes: int = 60 * 24 * 7
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
 
+    google_client_id: str = ""
+    google_client_secret: str = ""
+    google_redirect_uri: str = "http://localhost:3000/auth/callback"
+
+    openrouter_api_key: str = ""
+    openrouter_model: str = "arcee-ai/trinity-large-preview:free"
+    openrouter_base_url: str = "https://openrouter.ai/api/v1"
+
     google_drive_service_account_file: str = ""
     google_drive_root_folder_id: str = ""
     google_drive_source: str = "personal"
