@@ -6,6 +6,7 @@ from app.api.deps import is_admin, require_roles
 from app.db.session import get_db
 from app.models.pedagogical_record import PedagogicalRecord
 from app.models.student import Student
+from app.models.teacher_student_assignment import TeacherStudentAssignment
 from app.models.user import User
 from app.schemas.pedagogical_record import (
     PedagogicalRecordCreate,
@@ -20,11 +21,9 @@ router = APIRouter(prefix="/students/{student_id}/records", tags=["records"])
 def list_records(
     student_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
+    current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
-    student = db.get(Student, student_id)
-    if not student:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    student = _ensure_student_access(db, student_id, current_user)
 
     query = (
         select(PedagogicalRecord)
@@ -41,9 +40,7 @@ def create_record(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
-    student = db.get(Student, student_id)
-    if not student:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    student = _ensure_student_access(db, student_id, current_user)
 
     record = PedagogicalRecord(
         student_id=student.id,
@@ -67,9 +64,7 @@ def update_record(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
-    student = db.get(Student, student_id)
-    if not student:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    student = _ensure_student_access(db, student_id, current_user)
 
     record = db.get(PedagogicalRecord, record_id)
     if not record or str(record.student_id) != student_id:
@@ -93,9 +88,7 @@ def delete_record(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
-    student = db.get(Student, student_id)
-    if not student:
-        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+    student = _ensure_student_access(db, student_id, current_user)
 
     record = db.get(PedagogicalRecord, record_id)
     if not record or str(record.student_id) != student_id:
@@ -106,3 +99,21 @@ def delete_record(
 
     db.delete(record)
     db.commit()
+
+
+def _ensure_student_access(db: Session, student_id: str, current_user: User) -> Student:
+    student = db.get(Student, student_id)
+    if not student:
+        raise HTTPException(status_code=404, detail="Alumno no encontrado")
+
+    if current_user.role == "DOCENTE":
+        assignment = db.scalar(
+            select(TeacherStudentAssignment).where(
+                TeacherStudentAssignment.teacher_id == current_user.id,
+                TeacherStudentAssignment.student_id == student.id,
+            )
+        )
+        if not assignment:
+            raise HTTPException(status_code=403, detail="Alumno no asignado al docente")
+
+    return student

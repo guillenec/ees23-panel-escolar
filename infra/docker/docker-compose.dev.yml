@@ -17,6 +17,7 @@ services:
     working_dir: /app
     volumes:
       - ../../backend:/app
+      - /home/guillenec/.config/ees23:/secrets/ees23:ro
     command: sh -c "pip install -r requirements.txt && (alembic upgrade head || alembic stamp head) && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     environment:
       APP_NAME: EES23 API
@@ -26,6 +27,7 @@ services:
       JWT_SECRET_KEY: change-me-in-docker
       JWT_ALGORITHM: HS256
       ACCESS_TOKEN_MINUTES: 60
+      GOOGLE_DRIVE_SERVICE_ACCOUNT_FILE: /secrets/ees23/drive-sa.json
     ports:
       - "8000:8000"
     depends_on:

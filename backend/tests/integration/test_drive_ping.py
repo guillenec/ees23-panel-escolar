@@ -4,6 +4,8 @@ from fastapi.testclient import TestClient
 
 import app.api.v1.integrations as integrations_api
 from app.api.deps import get_current_user
+from app.db.session import get_db
+from app.models.student import Student
 from app.main import app
 
 
@@ -20,6 +22,16 @@ def _override_user(role: str):
         return SimpleNamespace(id="test-user", role=role, is_active=True)
 
     return _dep
+
+
+class _FakeDb:
+    def scalar(self, _query):
+        return object()
+
+    def get(self, model, _entity_id):
+        if model is Student:
+            return SimpleNamespace(last_name="Perez")
+        return None
 
 
 def test_admin_can_ping_drive(monkeypatch) -> None:
@@ -63,6 +75,7 @@ def test_docente_cannot_ping_drive() -> None:
 
 def test_docente_can_list_drive_items(monkeypatch) -> None:
     app.dependency_overrides[get_current_user] = _override_user("DOCENTE")
+    app.dependency_overrides[get_db] = lambda: _FakeDb()
     monkeypatch.setattr(
         integrations_api,
         "list_folder_items",
@@ -82,12 +95,25 @@ def test_docente_can_list_drive_items(monkeypatch) -> None:
 
     try:
         client = _client_without_startup()
-        response = client.get("/api/v1/integrations/drive/items?parent_id=root-123")
+        response = client.get(
+            "/api/v1/integrations/drive/items?parent_id=root-123&student_id=00000000-0000-0000-0000-000000000001"
+        )
         assert response.status_code == 200
         payload = response.json()
         assert payload["status"] == "ok"
         assert payload["count"] == 1
         assert payload["items"][0]["kind"] == "folder"
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_docente_without_student_id_is_rejected() -> None:
+    app.dependency_overrides[get_current_user] = _override_user("DOCENTE")
+    app.dependency_overrides[get_db] = lambda: _FakeDb()
+    try:
+        client = _client_without_startup()
+        response = client.get("/api/v1/integrations/drive/items?parent_id=root-123")
+        assert response.status_code == 400
     finally:
         app.dependency_overrides.clear()
 

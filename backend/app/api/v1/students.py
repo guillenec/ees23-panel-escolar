@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.api.deps import require_roles
 from app.db.session import get_db
 from app.models.student import Student
+from app.models.teacher_student_assignment import TeacherStudentAssignment
 from app.models.user import User
 from app.schemas.student import StudentCreate, StudentRead, StudentUpdate
 
@@ -13,8 +14,18 @@ router = APIRouter(prefix="/students", tags=["students"])
 
 @router.get("", response_model=list[StudentRead])
 def list_students(
-    db: Session = Depends(get_db), _: User = Depends(require_roles("ADMIN", "DOCENTE"))
+    db: Session = Depends(get_db), current_user: User = Depends(require_roles("ADMIN", "DOCENTE"))
 ):
+    if current_user.role == "DOCENTE":
+        return list(
+            db.scalars(
+                select(Student)
+                .join(TeacherStudentAssignment, TeacherStudentAssignment.student_id == Student.id)
+                .where(TeacherStudentAssignment.teacher_id == current_user.id)
+                .order_by(Student.created_at.desc())
+            )
+        )
+
     return list(db.scalars(select(Student).order_by(Student.created_at.desc())))
 
 
@@ -39,11 +50,22 @@ def create_student(
 def get_student(
     student_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(require_roles("ADMIN", "DOCENTE")),
+    current_user: User = Depends(require_roles("ADMIN", "DOCENTE")),
 ):
     student = db.get(Student, student_id)
     if not student:
         raise HTTPException(status_code=404, detail="Alumno no encontrado")
+
+    if current_user.role == "DOCENTE":
+        assignment = db.scalar(
+            select(TeacherStudentAssignment).where(
+                TeacherStudentAssignment.teacher_id == current_user.id,
+                TeacherStudentAssignment.student_id == student.id,
+            )
+        )
+        if not assignment:
+            raise HTTPException(status_code=403, detail="Alumno no asignado al docente")
+
     return student
 
 

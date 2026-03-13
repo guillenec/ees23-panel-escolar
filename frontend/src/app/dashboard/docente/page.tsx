@@ -37,7 +37,7 @@ export default function DocenteDashboardPage() {
           </article>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <Link
             href="/students"
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow"
@@ -56,6 +56,13 @@ export default function DocenteDashboardPage() {
             <h2 className="text-base font-semibold text-slate-900">Permisos</h2>
             <p className="mt-1 text-sm text-slate-600">Edicion limitada a recursos propios y datos no sensibles.</p>
           </article>
+          <Link
+            href="/documents"
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow"
+          >
+            <h2 className="text-base font-semibold text-slate-900">Documentos</h2>
+            <p className="mt-1 text-sm text-slate-600">Acceso a carpetas institucionales y archivos de trabajo.</p>
+          </Link>
         </section>
       </main>
     </RequireAuth>
