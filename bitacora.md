@@ -540,3 +540,20 @@ Validacion:
 Pendiente:
 
 - agregar UI admin para gestionar asignaciones sin usar Swagger
+
+## Cierre de jornada
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Estado de cierre:
+
+- integracion Drive operativa en backend (`ping` y `items`) y explorador frontend disponible en `/documents`
+- control de acceso por asignacion docente/alumno activo en alumnos, seguimientos y listados de Drive
+- migracion `0002_teacher_student_assignments` aplicada en entorno local Docker
+- bitacoras y worklog sincronizados con commits de la jornada
+
+Pendiente para la proxima sesion:
+
+- construir UI administrativa para altas/bajas de asignaciones
+- probar escenario end-to-end con al menos un docente real y alumnos asignados

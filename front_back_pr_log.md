@@ -191,6 +191,7 @@ Cambios realizados (iteracion actual):
 - [x] endpoints admin de asignaciones (`GET/POST/DELETE /assignments`)
 - [x] filtros de acceso por asignacion en alumnos, seguimientos y listado Drive para rol `DOCENTE`
 - [x] ajuste frontend `documents` para requerir alumno asignado en rol docente
+- [x] cierre de jornada documentado en bitacora con pendientes de siguiente sesion
 
 Commits:
 
