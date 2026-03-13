@@ -488,3 +488,55 @@ Correccion aplicada:
 Pendiente:
 
 - ejecutar prueba funcional de login en Swagger para confirmar flujo completo
+
+## Sesion de avance - explorador documental frontend
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- exponer en UI la navegacion Drive ya disponible en backend
+
+Cambios realizados:
+
+- frontend: nueva pantalla `frontend/src/app/documents/page.tsx`
+- funcionalidades: breadcrumb de navegacion, busqueda por nombre, filtro solo carpetas, apertura en Drive
+- dashboard admin/docente: nuevo acceso rapido al modulo Documentos (`/documents`)
+- compose dev: montaje de secreto local para credenciales Drive (`/secrets/ees23/drive-sa.json`)
+
+Validacion:
+
+- pruebas frontend `npm run test -- --no-cache` OK
+- endpoint backend validado previamente con respuestas `200` en `drive/ping` y `drive/items`
+
+Pendiente:
+
+- agregar filtro semantico por anio/localidad/nivel/institucion/estudiante en UI
+
+## Sesion de avance - asignaciones docente/alumno y control de acceso
+
+Fecha: 2026-03-12
+Responsable: OpenCode + Guillermo
+
+Objetivo de la sesion:
+
+- preparar control real por docente para que cada usuario vea solo alumnos asignados
+
+Cambios realizados:
+
+- backend: nuevo modelo `TeacherStudentAssignment` + migracion Alembic `0002_teacher_student_assignments`
+- backend: endpoints admin en `GET/POST/DELETE /api/v1/assignments`
+- backend: `/students` y `GET /students/{id}` ahora filtran/restringen por asignacion para `DOCENTE`
+- backend: `records` valida asignacion de alumno para `DOCENTE` antes de listar/crear/editar/eliminar
+- backend: `GET /integrations/drive/items` para `DOCENTE` exige `student_id` y valida asignacion
+- frontend: `documents` carga contexto (`/auth/me` + `/students`) y para `DOCENTE` exige seleccion de alumno asignado
+
+Validacion:
+
+- migracion aplicada en contenedor: `alembic upgrade head` OK (0001 -> 0002)
+- pruebas frontend `npm run test -- --no-cache` OK
+
+Pendiente:
+
+- agregar UI admin para gestionar asignaciones sin usar Swagger

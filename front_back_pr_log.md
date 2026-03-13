@@ -185,6 +185,12 @@ Cambios realizados (iteracion actual):
 - [x] endpoint `GET /integrations/drive/items` con filtros basicos (`parent_id`, `search`, `folders_only`)
 - [x] test de integracion para listado Drive y permisos por rol docente
 - [x] fix de arranque backend: Settings alineado con variables `.env` para evitar caida de `/docs`
+- [x] frontend: modulo `Documentos` con explorador Drive (`/documents`) conectado a `/integrations/drive/items`
+- [x] compose dev: montaje de carpeta local de secretos para resolver credencial de service account en contenedor
+- [x] modelo y migracion de asignaciones docente/alumno (`teacher_student_assignments`)
+- [x] endpoints admin de asignaciones (`GET/POST/DELETE /assignments`)
+- [x] filtros de acceso por asignacion en alumnos, seguimientos y listado Drive para rol `DOCENTE`
+- [x] ajuste frontend `documents` para requerir alumno asignado en rol docente
 
 Commits:
 
@@ -210,6 +216,8 @@ Commits:
 - `feat(integrations): bootstrap drive service account flow and UI polish` (`da2f7bf`)
 - `docs(bitacora): log session closure and next steps` (`493f5e0`)
 - `feat(integrations): add drive folder listing endpoint and filters` (`25f3be8`)
+- `fix(config): align settings with existing env variables` (`aeb7e2d`)
+- `feat(authz): scope docentes to assigned students and drive access` (`4fe27ea`)
 
 Archivos clave (iteracion docs + UI):
 
@@ -225,3 +233,9 @@ Archivos clave (iteracion docs + UI):
 - `backend/app/core/config.py`
 - `backend/.env.example`
 - `backend/requirements.txt`
+- `backend/app/models/teacher_student_assignment.py`
+- `backend/alembic/versions/0002_teacher_student_assignments.py`
+- `backend/app/api/v1/assignments.py`
+- `backend/app/api/v1/students.py`
+- `backend/app/api/v1/records.py`
+- `frontend/src/app/documents/page.tsx`
